@@ -3,18 +3,18 @@ For classes on code optymization
 
 Usage
 
-mkdir build
+$ mkdir build
 
-cd mkdir
+$ cd mkdir
 
-cmake -DPAPI_PREFIX=<path to PAPI> ..
+$ cmake -DPAPI_PREFIX=<path to PAPI> ..
 
-make
+$ make
 
 
 For example
 
-cmake -DPAPI_PREFIX=/opt/papi ..
+$ cmake -DPAPI_PREFIX=/opt/papi ..
 
 # PAPI
 
