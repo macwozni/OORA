@@ -1,16 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-
-#define SIZE 512
-
 #include <sys/time.h>
 #include <time.h>
+#include <papi.h>
+
+#define SIZE 512
 
 static double gtod_ref_time_sec = 0.0;
 
 /* Adapted from the bl2_clock() routine in the BLIS library */
-
 double dclock() {
     double the_time, norm_sec;
     struct timeval tv;
@@ -43,6 +41,17 @@ int main(int argc, const char* argv[]) {
     double second[SIZE][SIZE];
     double multiply[SIZE][SIZE];
     double dtime;
+
+    int measure;
+    int events[2];
+    int numevents;
+    int retval, check;
+    float real_time, proc_time, mflops;
+    long long flpins;
+    char * errorstring;
+
+
+
     for (i = 0; i < SIZE; i++) { //rows in first
         for (j = 0; j < SIZE; j++) { //columns in first
             first[i][j] = i + j;
@@ -50,20 +59,51 @@ int main(int argc, const char* argv[]) {
             multiply[i][j] = 0.0;
         }
     }
+
+    measure = 1;
+    /*      Setup PAPI library and begin collecting data from the counters */
+    numevents = 2;
+    events[1] = PAPI_LD_INS;
+    events[2] = PAPI_SR_INS;
+    if (measure == 2) {
+        retval = PAPI_flops(&real_time, &proc_time, &flpins, &mflops);
+        if (retval != PAPI_OK) {
+            errorstring = PAPI_strerror(retval);
+            fprintf(stderr, errorstring);
+            fprintf(stderr, "\n");
+            free(errorstring);
+            exit(1);
+        }
+        printf("PAPI started");
+    }
+    if (measure == 2) {
+        PAPI_library_init(check);
+        retval = PAPI_start_counters(events, numevents);
+        if (retval != PAPI_OK) {
+            errorstring = PAPI_strerror(retval);
+            fprintf(stderr, errorstring);
+            fprintf(stderr, "\n");
+            free(errorstring);
+            exit(1);
+        }
+        printf("PAPI started");
+    }
+
+
     dtime = dclock();
     iret = mm(first, second, multiply);
     dtime = dclock() - dtime;
     printf("Time: %le \n", dtime);
 
-    double check = 0.0;
+    double mcheck = 0.0;
     for (i = 0; i < SIZE; i++) {
         for (j = 0; j < SIZE; j++) {
-            check += multiply[i][j];
+            mcheck += multiply[i][j];
         }
     }
-    printf("check %le \n", check);
+    printf("check %le \n", mcheck);
     fflush(stdout);
-    
+
     return iret;
 }
 

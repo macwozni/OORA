@@ -1,2 +1,11 @@
 # OORA
 For classes on code optymization
+
+Usage
+mkdir build
+cd mkdir
+cmake -DPAPI_PREFIX=<path to PAPI> ..
+make
+
+cmake -DPAPI_PREFIX=/opt/papi ..
+

@@ -18,6 +18,10 @@ if (C_COMPILER_NAME MATCHES "gcc.*")
   # gcc
   set (CMAKE_C_FLAGS_RELEASE "-O")
   set (CMAKE_C_FLAGS_DEBUG   "-O0 -g")
+elseif (C_COMPILER_NAME MATCHES "cc.*")
+  # cc
+  set (CMAKE_C_FLAGS_RELEASE "-O")
+  set (CMAKE_C_FLAGS_DEBUG   "-O0 -g")
 elseif (C_COMPILER_NAME MATCHES "icc.*")
   # icc
   set (CMAKE_C_FLAGS_RELEASE "-O")
