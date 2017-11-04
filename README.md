@@ -1,7 +1,7 @@
 # OORA
 For classes on code optymization
 
-Usage
+## Usage
 
 $ mkdir build
 
