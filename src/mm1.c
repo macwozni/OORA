@@ -20,6 +20,7 @@ double dclock() {
     return the_time;
 }
 
+/* Mulitplication of two matrices */
 int mm(double first[][SIZE], double second[][SIZE], double multiply[][SIZE]) {
     int i, j, k;
     double sum = 0;
@@ -42,17 +43,21 @@ int main(int argc, const char* argv[]) {
     double multiply[SIZE][SIZE];
     double dtime;
 
+    /* PAPI variables */
     int measure;
     int * events;
     long long * values;
     int numevents;
-    int retval, check;
-    float real_time, proc_time, mflops;
+    int retval;
+    int check;
+    float real_time;
+    float proc_time;
+    float mflops;
     long long flpins;
     char * errorstring;
 
 
-
+    /* Initalize matrices */
     for (i = 0; i < SIZE; i++) { //rows in first
         for (j = 0; j < SIZE; j++) { //columns in first
             first[i][j] = i + j;
@@ -61,8 +66,13 @@ int main(int argc, const char* argv[]) {
         }
     }
 
-    measure = 2;
-    /*      Setup PAPI library and begin collecting data from the counters */
+
+    measure = 0;
+    if (argc > 1) {
+        measure = atoi(argv[1]);
+    }
+
+    /* Start PAPI counters*/
     if (measure == 1) {
         retval = PAPI_flops(&real_time, &proc_time, &flpins, &mflops);
         if (retval != PAPI_OK) {
@@ -91,13 +101,21 @@ int main(int argc, const char* argv[]) {
         printf("PAPI started\n");
     }
 
+    /* Measure execution time */
+    if (measure == 0) {
+        dtime = dclock();
+    }
 
-    dtime = dclock();
+    /* Here is call to matrix multiplication functionality */
     iret = mm(first, second, multiply);
-    dtime = dclock() - dtime;
-    printf("Time: %le \n", dtime);
 
+    /* Measure execution time */
+    if (measure == 0) {
+        dtime = dclock() - dtime;
+        printf("Time: %le \n", dtime);
+    }
 
+    /* Here is PAPI reading and printout */
     if (measure == 1) {
         retval = PAPI_flops(&real_time, &proc_time, &flpins, &mflops);
         if (retval != PAPI_OK) {
@@ -124,6 +142,7 @@ int main(int argc, const char* argv[]) {
         free(events);
     }
 
+    /* Checking part of the code. Proper value is 2.932020e+12 */
     double mcheck = 0.0;
     for (i = 0; i < SIZE; i++) {
         for (j = 0; j < SIZE; j++) {
