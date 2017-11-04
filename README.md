@@ -1,5 +1,13 @@
 # OORA
-For classes on code optymization
+
+For classes on [code optymization][oora].
+[oora]: http://home.agh.edu.pl/~paszynsk/OORA/
+It is intended to be used along with [instruction of 20 steps to optymize matrix multipliacation][instr].
+[instr]:http://home.agh.edu.pl/~paszynsk/OORA/Opt_lecture2_MMopt20steps.pdf
+
+## Code
+
+Code is written in C
 
 ## Usage
 
@@ -11,10 +19,14 @@ $ cmake -DPAPI_PREFIX=\<path to PAPI\> ..
 
 $ make
 
+## Specify complier
 
-For example
+$ FC=\<compiler\> cmake -DPAPI_PREFIX=\<path to PAPI\> ..
 
-$ cmake -DPAPI_PREFIX=/opt/papi ..
+
+### For example
+
+$ FC=icc cmake -DPAPI_PREFIX=/opt/papi ..
 
 # PAPI
 
