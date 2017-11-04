@@ -44,6 +44,7 @@ int main(int argc, const char* argv[]) {
 
     int measure;
     int events[2];
+    long long values[2];
     int numevents;
     int retval, check;
     float real_time, proc_time, mflops;
@@ -60,12 +61,12 @@ int main(int argc, const char* argv[]) {
         }
     }
 
-    measure = 1;
+    measure = 2;
     /*      Setup PAPI library and begin collecting data from the counters */
     numevents = 2;
-    events[1] = PAPI_LD_INS;
-    events[2] = PAPI_SR_INS;
-    if (measure == 2) {
+    events[0] = PAPI_LD_INS;
+    events[1] = PAPI_SR_INS;
+    if (measure == 1) {
         retval = PAPI_flops(&real_time, &proc_time, &flpins, &mflops);
         if (retval != PAPI_OK) {
             errorstring = PAPI_strerror(retval);
@@ -74,7 +75,7 @@ int main(int argc, const char* argv[]) {
             free(errorstring);
             exit(1);
         }
-        printf("PAPI started");
+        printf("PAPI started\n");
     }
     if (measure == 2) {
         PAPI_library_init(check);
@@ -86,7 +87,7 @@ int main(int argc, const char* argv[]) {
             free(errorstring);
             exit(1);
         }
-        printf("PAPI started");
+        printf("PAPI started\n");
     }
 
 
@@ -94,6 +95,33 @@ int main(int argc, const char* argv[]) {
     iret = mm(first, second, multiply);
     dtime = dclock() - dtime;
     printf("Time: %le \n", dtime);
+
+
+    if (measure == 1) {
+        retval = PAPI_flops(&real_time, &proc_time, &flpins, &mflops);
+        if (retval != PAPI_OK) {
+            errorstring = PAPI_strerror(retval);
+            fprintf(stderr, errorstring);
+            fprintf(stderr, "\n");
+            free(errorstring);
+            exit(1);
+        }
+        printf("Real_time: %f Proc_time: %f Total flpops: %lld MFLOPS: %f\n", real_time, proc_time, flpins, mflops);
+    }
+    if (measure == 2) {
+        retval = PAPI_stop_counters(values, numevents);
+        if (retval != PAPI_OK) {
+            errorstring = PAPI_strerror(retval);
+            fprintf(stderr, errorstring);
+            fprintf(stderr, "\n");
+            free(errorstring);
+            exit(1);
+        }
+        printf("Mem loads: %lld Mem store: %lld\n", values[0], values[1]);
+        /*write (*,*) 'Mem loads : ', values(1),
+    .     '  Mem store : ', values(2),
+    .     '  MYRANK : ', MYRANK*/
+    }
 
     double mcheck = 0.0;
     for (i = 0; i < SIZE; i++) {
