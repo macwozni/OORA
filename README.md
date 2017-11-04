@@ -1,8 +1,9 @@
 # OORA
 
 For classes on [code optymization][oora].
-[oora]: http://home.agh.edu.pl/~paszynsk/OORA/
 It is intended to be used along with [instruction of 20 steps to optymize matrix multipliacation][instr].
+
+[oora]: http://home.agh.edu.pl/~paszynsk/OORA/
 [instr]:http://home.agh.edu.pl/~paszynsk/OORA/Opt_lecture2_MMopt20steps.pdf
 
 ## Code
