@@ -43,8 +43,8 @@ int main(int argc, const char* argv[]) {
     double dtime;
 
     int measure;
-    int events[2];
-    long long values[2];
+    int * events;
+    long long * values;
     int numevents;
     int retval, check;
     float real_time, proc_time, mflops;
@@ -63,9 +63,6 @@ int main(int argc, const char* argv[]) {
 
     measure = 2;
     /*      Setup PAPI library and begin collecting data from the counters */
-    numevents = 2;
-    events[0] = PAPI_LD_INS;
-    events[1] = PAPI_SR_INS;
     if (measure == 1) {
         retval = PAPI_flops(&real_time, &proc_time, &flpins, &mflops);
         if (retval != PAPI_OK) {
@@ -78,6 +75,10 @@ int main(int argc, const char* argv[]) {
         printf("PAPI started\n");
     }
     if (measure == 2) {
+        numevents = 2;
+        events = malloc(sizeof *events * numevents);
+        events[0] = PAPI_LD_INS;
+        events[1] = PAPI_SR_INS;
         PAPI_library_init(check);
         retval = PAPI_start_counters(events, numevents);
         if (retval != PAPI_OK) {
@@ -109,6 +110,7 @@ int main(int argc, const char* argv[]) {
         printf("Real_time: %f Proc_time: %f Total flpops: %lld MFLOPS: %f\n", real_time, proc_time, flpins, mflops);
     }
     if (measure == 2) {
+        values = malloc(sizeof *values * numevents);
         retval = PAPI_stop_counters(values, numevents);
         if (retval != PAPI_OK) {
             errorstring = PAPI_strerror(retval);
@@ -118,9 +120,8 @@ int main(int argc, const char* argv[]) {
             exit(1);
         }
         printf("Mem loads: %lld Mem store: %lld\n", values[0], values[1]);
-        /*write (*,*) 'Mem loads : ', values(1),
-    .     '  Mem store : ', values(2),
-    .     '  MYRANK : ', MYRANK*/
+        free(values);
+        free(events);
     }
 
     double mcheck = 0.0;
