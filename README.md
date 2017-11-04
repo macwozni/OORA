@@ -11,7 +11,7 @@ It is intended to be used along with [instruction of 20 steps to optymize matrix
 Code is written in C with use of [PAPI][p] and it's counters.
 One should firt check what kind of counters are available on their system
 
-$ \path to PAPI\>bin/papi_avail
+$ \<path to PAPI\>bin/papi_avail
 
 [p]: http://icl.utk.edu/papi/
 
