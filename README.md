@@ -7,7 +7,7 @@ $ mkdir build
 
 $ cd mkdir
 
-$ cmake -DPAPI_PREFIX=<path to PAPI> ..
+$ cmake -DPAPI_PREFIX=\<path to PAPI\> ..
 
 $ make
 
