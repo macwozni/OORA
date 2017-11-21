@@ -1,4 +1,4 @@
-#define SIZE 2048
+#define SIZE 512
 
 
 subroutine mm(first, second, multiply, ret)
