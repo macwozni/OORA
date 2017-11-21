@@ -15,7 +15,20 @@ subroutine mm(first, second, multiply, ret)
 
    do i = 1, SIZE ! columns in mmultiply
       do j = 1, SIZE ! rows in multiply
-         multiply(i, j) = dot_product(first(i,:), second(:, j))
+         k = 1
+         do while (k .le. SIZE)
+            sum = sum + first(i, k) * second(j, k) &
+            +first(i, k + 1) * second(j, k + 1)&
+            +first(i, k + 2) * second(j, k + 2)&
+            +first(i, k + 3) * second(j, k + 3)&
+            +first(i, k + 4) * second(j, k + 4)&
+            +first(i, k + 5) * second(j, k + 5)&
+            +first(i, k + 6) * second(j, k + 6)&
+            +first(i, k + 7) * second(j, k + 7)
+            k = k + 8
+         end do
+         multiply(i, j) = sum
+         sum = 0.d0
       end do
    end do
    ret = 0.d0
@@ -35,7 +48,7 @@ program main
    do i = 1, SIZE
       do j = 1, SIZE
          first(i, j) = i + j
-         second(i, j) = i - j
+         second(j, i) = i - j
       end do
    end do
    !multiply = 0.d0 ! this is much faster than putting that in loop !!

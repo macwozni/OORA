@@ -7,17 +7,8 @@ subroutine mm(first, second, multiply, ret)
    real (kind = 8), intent(in) :: second(SIZE, SIZE)
    real (kind = 8), intent(out) :: multiply(SIZE, SIZE)
    integer (kind = 4), intent(out) :: ret
-   integer(kind = 4) :: i, j, k
-   real (kind = 8) :: sum
 
-   sum = 0.d0
-   multiply = 0.d0
-
-   do i = 1, SIZE ! columns in mmultiply
-      do j = 1, SIZE ! rows in multiply
-         multiply(i, j) = dot_product(first(i,:), second(:, j))
-      end do
-   end do
+   multiply = MATMUL(first, second)
    ret = 0.d0
 
 end subroutine

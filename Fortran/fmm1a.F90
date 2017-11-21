@@ -13,9 +13,11 @@ subroutine mm(first, second, multiply, ret)
    sum = 0.d0
    multiply = 0.d0
 
-   do i = 1, SIZE ! columns in mmultiply
-      do j = 1, SIZE ! rows in multiply
-         multiply(i, j) = dot_product(first(i,:), second(:, j))
+   do j = 1, SIZE ! rows in multiply
+      do k = 1, SIZE 
+         do i = 1, SIZE ! columns in mmultiply
+            multiply(i, j) = multiply(i, j) + first(i, k) * second(k, j)
+         end do
       end do
    end do
    ret = 0.d0
