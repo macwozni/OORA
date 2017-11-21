@@ -32,6 +32,7 @@ program main
    real (kind = 8) :: multiply(SIZE, SIZE)
    real (kind = 8) :: dtime
    real (kind = 8) :: mcheck
+   integer (kind=4) :: iclock
 
    do i = 1, SIZE
       do j = 1, SIZE
@@ -41,8 +42,15 @@ program main
    end do
    multiply = 0.d0 ! this is much faster than putting that in loop !!
 
+      call start_clock(iclock)
+      
+   ! Here is call to matrix multiplication functionality
    call mm(first, second, multiply, iret)
 
+      call stop_clock(dtime,iclock)
+      write(*,*) 'dtime : ', dtime
+      
+   ! Checking part of the code. Proper value is 2.932020e+12
    mcheck = 0.d0;
    do i = 1, SIZE
       do j = 1, SIZE
