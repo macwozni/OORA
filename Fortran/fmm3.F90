@@ -27,6 +27,7 @@ subroutine mm(first, second, multiply, ret)
       end do
    end do
 
+   ret = 0.d0
 
 end subroutine
 
