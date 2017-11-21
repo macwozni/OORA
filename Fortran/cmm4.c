@@ -22,115 +22,104 @@ double dclock() {
 int mm(double first[][SIZE], double second[][SIZE], double multiply[][SIZE]) {
     /*register unsigned*/ int i, j, k; //<- OPT 1
     register double sum = 0.0;
-    for (i = SIZE; i--;) { //rows in multiply <- OPT 3
-        for (j = 0; j < SIZE;) { //columns in multiply
-
+    for (i = 0; i < SIZE; i++) { //rows in multiply <- OPT 3
+        for (j = 0; j < SIZE;) {
             for (k = 0; k < SIZE;) {
-                if (j < SIZE - 8 && k < SIZE - 8) {
 
-                    sum = sum + first[i][k] * second[j][k];
-                    sum = sum + first[i][k + 1] * second[j][k + 1];
-                    sum = sum + first[i][k + 2] * second[j][k + 2];
-                    sum = sum + first[i][k + 3] * second[j][k + 3];
-                    sum = sum + first[i][k + 4] * second[j][k + 4];
-                    sum = sum + first[i][k + 5] * second[j][k + 5];
-                    sum = sum + first[i][k + 6] * second[j][k + 6];
-                    sum = sum + first[i][k + 7] * second[j][k + 7];
-                    multiply[i][j] += sum;
-                    sum = 0.0;
+                sum = sum + first[i][k] * second[j][k];
+                sum = sum + first[i][k + 1] * second[j][k + 1];
+                sum = sum + first[i][k + 2] * second[j][k + 2];
+                sum = sum + first[i][k + 3] * second[j][k + 3];
+                sum = sum + first[i][k + 4] * second[j][k + 4];
+                sum = sum + first[i][k + 5] * second[j][k + 5];
+                sum = sum + first[i][k + 6] * second[j][k + 6];
+                sum = sum + first[i][k + 7] * second[j][k + 7];
+                multiply[i][j] += sum;
+                sum = 0.0;
 
-                    sum = sum + first[i][k] * second[j + 1][k];
-                    sum = sum + first[i][k + 1] * second[j + 1][k + 1];
-                    sum = sum + first[i][k + 2] * second[j + 1][k + 2];
-                    sum = sum + first[i][k + 3] * second[j + 1][k + 3];
-                    sum = sum + first[i][k + 4] * second[j + 1][k + 4];
-                    sum = sum + first[i][k + 5] * second[j + 1][k + 5];
-                    sum = sum + first[i][k + 6] * second[j + 1][k + 6];
-                    sum = sum + first[i][k + 7] * second[j + 1][k + 7];
-                    multiply[i][j + 1] += sum;
-                    sum = 0.0;
+                sum = sum + first[i][k] * second[j + 1][k];
+                sum = sum + first[i][k + 1] * second[j + 1][k + 1];
+                sum = sum + first[i][k + 2] * second[j + 1][k + 2];
+                sum = sum + first[i][k + 3] * second[j + 1][k + 3];
+                sum = sum + first[i][k + 4] * second[j + 1][k + 4];
+                sum = sum + first[i][k + 5] * second[j + 1][k + 5];
+                sum = sum + first[i][k + 6] * second[j + 1][k + 6];
+                sum = sum + first[i][k + 7] * second[j + 1][k + 7];
+                multiply[i][j + 1] += sum;
+                sum = 0.0;
 
-                    sum = sum + first[i][k] * second[j + 2][k];
-                    sum = sum + first[i][k + 1] * second[j + 2][k + 1];
-                    sum = sum + first[i][k + 2] * second[j + 2][k + 2];
-                    sum = sum + first[i][k + 3] * second[j + 2][k + 3];
-                    sum = sum + first[i][k + 4] * second[j + 2][k + 4];
-                    sum = sum + first[i][k + 5] * second[j + 2][k + 5];
-                    sum = sum + first[i][k + 6] * second[j + 2][k + 6];
-                    sum = sum + first[i][k + 7] * second[j + 2][k + 7];
-                    multiply[i][j + 2] += sum;
-                    sum = 0.0;
+                sum = sum + first[i][k] * second[j + 2][k];
+                sum = sum + first[i][k + 1] * second[j + 2][k + 1];
+                sum = sum + first[i][k + 2] * second[j + 2][k + 2];
+                sum = sum + first[i][k + 3] * second[j + 2][k + 3];
+                sum = sum + first[i][k + 4] * second[j + 2][k + 4];
+                sum = sum + first[i][k + 5] * second[j + 2][k + 5];
+                sum = sum + first[i][k + 6] * second[j + 2][k + 6];
+                sum = sum + first[i][k + 7] * second[j + 2][k + 7];
+                multiply[i][j + 2] += sum;
+                sum = 0.0;
 
-                    sum = sum + first[i][k] * second[j + 3][k];
-                    sum = sum + first[i][k + 1] * second[j + 3][k + 1];
-                    sum = sum + first[i][k + 2] * second[j + 3][k + 2];
-                    sum = sum + first[i][k + 3] * second[j + 3][k + 3];
-                    sum = sum + first[i][k + 4] * second[j + 3][k + 4];
-                    sum = sum + first[i][k + 5] * second[j + 3][k + 5];
-                    sum = sum + first[i][k + 6] * second[j + 3][k + 6];
-                    sum = sum + first[i][k + 7] * second[j + 3][k + 7];
-                    multiply[i][j + 3] += sum;
-                    sum = 0.0;
+                sum = sum + first[i][k] * second[j + 3][k];
+                sum = sum + first[i][k + 1] * second[j + 3][k + 1];
+                sum = sum + first[i][k + 2] * second[j + 3][k + 2];
+                sum = sum + first[i][k + 3] * second[j + 3][k + 3];
+                sum = sum + first[i][k + 4] * second[j + 3][k + 4];
+                sum = sum + first[i][k + 5] * second[j + 3][k + 5];
+                sum = sum + first[i][k + 6] * second[j + 3][k + 6];
+                sum = sum + first[i][k + 7] * second[j + 3][k + 7];
+                multiply[i][j + 3] += sum;
+                sum = 0.0;
 
-                    sum = sum + first[i][k] * second[j + 4][k];
-                    sum = sum + first[i][k + 1] * second[j + 4][k + 1];
-                    sum = sum + first[i][k + 2] * second[j + 4][k + 2];
-                    sum = sum + first[i][k + 3] * second[j + 4][k + 3];
-                    sum = sum + first[i][k + 4] * second[j + 4][k + 4];
-                    sum = sum + first[i][k + 5] * second[j + 4][k + 5];
-                    sum = sum + first[i][k + 6] * second[j + 4][k + 6];
-                    sum = sum + first[i][k + 7] * second[j + 4][k + 7];
-                    multiply[i][j + 4] += sum;
-                    sum = 0.0;
+                sum = sum + first[i][k] * second[j + 4][k];
+                sum = sum + first[i][k + 1] * second[j + 4][k + 1];
+                sum = sum + first[i][k + 2] * second[j + 4][k + 2];
+                sum = sum + first[i][k + 3] * second[j + 4][k + 3];
+                sum = sum + first[i][k + 4] * second[j + 4][k + 4];
+                sum = sum + first[i][k + 5] * second[j + 4][k + 5];
+                sum = sum + first[i][k + 6] * second[j + 4][k + 6];
+                sum = sum + first[i][k + 7] * second[j + 4][k + 7];
+                multiply[i][j + 4] += sum;
+                sum = 0.0;
 
-                    sum = sum + first[i][k] * second[j + 5][k];
-                    sum = sum + first[i][k + 1] * second[j + 5][k + 1];
-                    sum = sum + first[i][k + 2] * second[j + 5][k + 2];
-                    sum = sum + first[i][k + 3] * second[j + 5][k + 3];
-                    sum = sum + first[i][k + 4] * second[j + 5][k + 4];
-                    sum = sum + first[i][k + 5] * second[j + 5][k + 5];
-                    sum = sum + first[i][k + 6] * second[j + 5][k + 6];
-                    sum = sum + first[i][k + 7] * second[j + 5][k + 7];
-                    multiply[i][j + 5] += sum;
-                    sum = 0.0;
+                sum = sum + first[i][k] * second[j + 5][k];
+                sum = sum + first[i][k + 1] * second[j + 5][k + 1];
+                sum = sum + first[i][k + 2] * second[j + 5][k + 2];
+                sum = sum + first[i][k + 3] * second[j + 5][k + 3];
+                sum = sum + first[i][k + 4] * second[j + 5][k + 4];
+                sum = sum + first[i][k + 5] * second[j + 5][k + 5];
+                sum = sum + first[i][k + 6] * second[j + 5][k + 6];
+                sum = sum + first[i][k + 7] * second[j + 5][k + 7];
+                multiply[i][j + 5] += sum;
+                sum = 0.0;
 
 
-                    sum = sum + first[i][k] * second[j + 6][k];
-                    sum = sum + first[i][k + 1] * second[j + 6][k + 1];
-                    sum = sum + first[i][k + 2] * second[j + 6][k + 2];
-                    sum = sum + first[i][k + 3] * second[j + 6][k + 3];
-                    sum = sum + first[i][k + 4] * second[j + 6][k + 4];
-                    sum = sum + first[i][k + 5] * second[j + 6][k + 5];
-                    sum = sum + first[i][k + 6] * second[j + 6][k + 6];
-                    sum = sum + first[i][k + 7] * second[j + 6][k + 7];
-                    multiply[i][j + 6] += sum;
-                    sum = 0.0;
+                sum = sum + first[i][k] * second[j + 6][k];
+                sum = sum + first[i][k + 1] * second[j + 6][k + 1];
+                sum = sum + first[i][k + 2] * second[j + 6][k + 2];
+                sum = sum + first[i][k + 3] * second[j + 6][k + 3];
+                sum = sum + first[i][k + 4] * second[j + 6][k + 4];
+                sum = sum + first[i][k + 5] * second[j + 6][k + 5];
+                sum = sum + first[i][k + 6] * second[j + 6][k + 6];
+                sum = sum + first[i][k + 7] * second[j + 6][k + 7];
+                multiply[i][j + 6] += sum;
+                sum = 0.0;
 
-                    sum = sum + first[i][k] * second[j + 7][k];
-                    sum = sum + first[i][k + 1] * second[j + 7][k + 1];
-                    sum = sum + first[i][k + 2] * second[j + 7][k + 2];
-                    sum = sum + first[i][k + 3] * second[j + 7][k + 3];
-                    sum = sum + first[i][k + 4] * second[j + 7][k + 4];
-                    sum = sum + first[i][k + 5] * second[j + 7][k + 5];
-                    sum = sum + first[i][k + 6] * second[j + 7][k + 6];
-                    sum = sum + first[i][k + 7] * second[j + 7][k + 7];
-                    multiply[i][j + 7] += sum;
-                    sum = 0.0;
+                sum = sum + first[i][k] * second[j + 7][k];
+                sum = sum + first[i][k + 1] * second[j + 7][k + 1];
+                sum = sum + first[i][k + 2] * second[j + 7][k + 2];
+                sum = sum + first[i][k + 3] * second[j + 7][k + 3];
+                sum = sum + first[i][k + 4] * second[j + 7][k + 4];
+                sum = sum + first[i][k + 5] * second[j + 7][k + 5];
+                sum = sum + first[i][k + 6] * second[j + 7][k + 6];
+                sum = sum + first[i][k + 7] * second[j + 7][k + 7];
+                multiply[i][j + 7] += sum;
+                sum = 0.0;
 
-                    k += 8;
+                k += 8;
 
-                } else {
-                    sum = sum + first[i][k] * second[j][k];
-                    multiply[i][j] += sum;
-                    sum = 0.0;
-                    k++;
-                }
             }
-            if (j < SIZE - 8)
-                j += 8;
-            else
-                j++;
-            }
+            j += 8;
+        }
     }
     return 0;
 }
