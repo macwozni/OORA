@@ -3,7 +3,7 @@
 #include <sys/time.h>
 #include <time.h>
 
-#define SIZE 512
+#define SIZE 2048
 
 static double gtod_ref_time_sec = 0.0;
 
