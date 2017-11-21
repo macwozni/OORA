@@ -21,7 +21,7 @@ double dclock() {
 
 int mm(double first[][SIZE], double second[][SIZE], double multiply[][SIZE]) {
     register unsigned int i, j, k; //<- OPT 1
-    register double sum = 0;
+    register double sum = 0.0;
     for (i = SIZE; i--;) { //rows in multiply <- OPT 3
         for (j = SIZE; j--;) { //columns in multiply
             for (k = 0; k < SIZE;) {
