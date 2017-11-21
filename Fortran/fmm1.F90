@@ -13,8 +13,8 @@ subroutine mm(first, second, multiply, ret)
    sum = 0.d0
    multiply = 0.d0
 
-   do i = 1, SIZE !rows in multiply
-      do j = 1, SIZE !columns in mmultiply
+   do i = 1, SIZE ! columns in mmultiply
+      do j = 1, SIZE ! rows in multiply
          do k = 1, SIZE
             sum = sum + first(i, k) * second(k, j)
          end do
