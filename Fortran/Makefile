@@ -1,7 +1,7 @@
 FORTRAN=gfortran
 CC=gcc
 FFLAGS=
-CFLAGS=
+CFLAGS= 
 COMMONFLAGS=
 
 SRCDIR=.
