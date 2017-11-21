@@ -1,0 +1,24 @@
+Compiled on SkyFall linux workstation
+CPU - i7-4820K
+RAM - 64GB quad channel DDR3 in 8 sticks
+System - openSUSE Leap 42.2
+gcc - 4.8.5
+intel compilers - 14.0.2
+options = -O2
+matrix size 2048x2048
+
+Results
+
+code        intel       gcc
+fmm1        91.35       91.53
+fmm2        90.78       92.84
+fmm3        4.20        6.32
+fmm_lib     4.81        5.03
+cmm1        88.40       84.88
+cmm2        8.22        6.82
+cmm3        11.48       11.46
+cmm4        12.76       5.21
+
+C code required changing stack size to unlimited, while Fortran did not
+$ ulimit -s unlimited
+
