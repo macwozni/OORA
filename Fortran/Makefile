@@ -6,7 +6,7 @@ COMMONFLAGS=
 
 SRCDIR=.
 
-FOBJS=fmm1.o
+FOBJS=keep_time.o fmm1.o
 COBJS=cmm1.o
 
 .PHONY : all
