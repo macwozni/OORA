@@ -5,11 +5,13 @@ subroutine mm(first, second, multiply, ret)
    implicit none
    real (kind = 8), intent(in) :: first(SIZE, SIZE)
    real (kind = 8), intent(in) :: second(SIZE, SIZE)
-   real (kind = 8) :: multiply(SIZE, SIZE)
+   real (kind = 8), intent(out) :: multiply(SIZE, SIZE)
    integer (kind = 4), intent(out) :: ret
    integer(kind = 4) :: i, j, k;
    real (kind = 8) :: sum
+
    sum = 0.d0
+   multiply = 0.d0
 
    do i = 1, SIZE !rows in multiply
       do j = 1, SIZE !columns in mmultiply
@@ -32,7 +34,7 @@ program main
    real (kind = 8) :: multiply(SIZE, SIZE)
    real (kind = 8) :: dtime
    real (kind = 8) :: mcheck
-   integer (kind=4) :: iclock
+   integer (kind = 4) :: iclock
 
    do i = 1, SIZE
       do j = 1, SIZE
@@ -40,16 +42,16 @@ program main
          second(i, j) = i - j
       end do
    end do
-   multiply = 0.d0 ! this is much faster than putting that in loop !!
+   !multiply = 0.d0 ! this is much faster than putting that in loop !!
 
-      call start_clock(iclock)
-      
+   call start_clock(iclock)
+
    ! Here is call to matrix multiplication functionality
    call mm(first, second, multiply, iret)
 
-      call stop_clock(dtime,iclock)
-      write(*,*) 'dtime : ', dtime
-      
+   call stop_clock(dtime, iclock)
+   write(*, *) 'dtime : ', dtime
+
    ! Checking part of the code. Proper value is 2.932020e+12
    mcheck = 0.d0;
    do i = 1, SIZE
