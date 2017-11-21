@@ -1,25 +1,36 @@
 FORTRAN=gfortran
-FLAGS=
+CC=gcc
+FFLAGS=
+CFLAGS=
+COMMONFLAGS=
 
 SRCDIR=.
 
-OBJS=mm1.o
+FOBJS=fmm1.o
+COBJS=cmm1.o
 
 .PHONY : all
-all : tests
+all : ftests ctests
 
 
-tests : $(OBJS)
-	$(FORTRAN) $(FLAGS) $^ -o $@
+ftests : $(FOBJS)
+	$(FORTRAN) $(FFLAGS) $(COMMONFLAGS) $^ -o $@
 
 %.o : $(SRCDIR)/%.F90
-	$(FORTRAN) $(FLAGS) -c $< -o $@
+	$(FORTRAN) $(FFLAGS) $(COMMONFLAGS) -c $< -o $@
 	
 
+ctests : $(COBJS)
+	$(CC) $(CFLAGS) $(COMMONFLAGS) $^ -o $@
+
+%.o : $(SRCDIR)/%.c
+	$(CC) $(CFLAGS) $(COMMONFLAGS) -c $< -o $@
 
 .PHONY : clean
 clean :
-	rm -f mm1
+	rm -f ftests
 	rm -f *.mod 
 	rm -f *.o
+	rm -f ctests
+	
  
