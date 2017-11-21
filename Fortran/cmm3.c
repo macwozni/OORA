@@ -22,9 +22,9 @@ double dclock() {
 
 int mm(double first[][SIZE], double second[][SIZE], double multiply[][SIZE]) {
     register unsigned int i, j, k;
-    int jj, kk;
+    register unsigned int jj, kk;
     register double sum = 0.0;
-    int ichunk;
+    register unsigned int ichunk;
 
     ichunk = 8; //512 // I have a 3MB cache size (real*4)
     for (jj = 0; jj < SIZE; jj += ichunk) {
