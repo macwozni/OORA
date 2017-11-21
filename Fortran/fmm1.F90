@@ -7,7 +7,7 @@ subroutine mm(first, second, multiply, ret)
    real (kind = 8), intent(in) :: second(SIZE, SIZE)
    real (kind = 8), intent(out) :: multiply(SIZE, SIZE)
    integer (kind = 4), intent(out) :: ret
-   integer(kind = 4) :: i, j, k;
+   integer(kind = 4) :: i, j, k
    real (kind = 8) :: sum
 
    sum = 0.d0
@@ -53,12 +53,12 @@ program main
    write(*, *) 'dtime : ', dtime
 
    ! Checking part of the code. Proper value is 2.932020e+12
-   mcheck = 0.d0;
+   mcheck = 0.d0
    do i = 1, SIZE
       do j = 1, SIZE
          mcheck = mcheck + multiply(i, j)
       end do
    end do
 
-   write (*, *) "check", mcheck;
+   write (*, *) "check", mcheck
 end
