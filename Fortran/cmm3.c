@@ -23,7 +23,7 @@ double dclock() {
 int mm(double first[][SIZE], double second[][SIZE], double multiply[][SIZE]) {
     register unsigned int i, j, k;
     int jj, kk;
-    register double sum = 0;
+    register double sum = 0.0;
     int ichunk;
 
     ichunk = 8; //512 // I have a 3MB cache size (real*4)
@@ -31,10 +31,12 @@ int mm(double first[][SIZE], double second[][SIZE], double multiply[][SIZE]) {
         for (kk = 0; kk < SIZE; kk += ichunk) {
 
             for (j = jj; j <= fmin(jj + ichunk - 1, SIZE); j++) {
-                for (k = kk; k <= fmin(kk + ichunk - 1, SIZE); k++) {
-                    for (i = 0; i < SIZE; i++) {
-                        multiply[i][j] = multiply[i][j] + first[i][k] * second[k][j];
+                for (i = 0; i < SIZE; i++) {
+                    for (k = kk; k <= fmin(kk + ichunk - 1, SIZE); k++) {
+                        sum += first[i][k] * second[j][k];
                     }
+                    multiply[i][j] += sum;
+                    sum = 0.0;
                 }
             }
 
@@ -56,7 +58,7 @@ int main(int argc, const char* argv[]) {
     for (i = 0; i < SIZE; i++) { //rows in first
         for (j = 0; j < SIZE; j++) { //columns in first
             first[i][j] = i + j;
-            second[i][j] = i - j;
+            second[j][i] = i - j;
             multiply[i][j] = 0.0;
         }
     }
